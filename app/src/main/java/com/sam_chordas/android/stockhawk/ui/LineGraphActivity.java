@@ -36,6 +36,8 @@ public class LineGraphActivity extends AppCompatActivity {
     private float[] mValues;
     private float mLowerBound, mUpperBound;
 
+    // Handler called when SingleStockTaskService finishes loading historic stock data
+    // Updates the historic stock price chart
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
 
         @Override
@@ -63,6 +65,7 @@ public class LineGraphActivity extends AppCompatActivity {
                     mDates[i] = dataPoints.get(arraySize-1-i).getDate();
                     mValues[i] = value;
 
+                    // Determines the lower and upper bound for the chart
                     if (value > mUpperBound) {
                         mUpperBound = value;
                     } else {
@@ -81,6 +84,8 @@ public class LineGraphActivity extends AppCompatActivity {
 
     };
 
+    // Effectively draws mLineChart based on values from mDates & mValues arrays,
+    // with mLowerBound and mUpperBound as chart limits
     private void drawChart() {
 
         mLineChart.setAxisBorderValues((int) mLowerBound-1, (int) mUpperBound+1, 1);

@@ -32,6 +32,20 @@ public interface IConstants {
     int INDEX_SYMBOL = 1;
     int INDEX_BIDPRICE = 2;
 
+    String JSON_QUERY = "query";
+    String JSON_COUNT = "count";
+    String JSON_RESULTS = "results";
+
+    String JSON_QUOTE_ARRAY = "quote";
+
+    String JSON_SYMBOL = "symbol";
+    String JSON_BID_PRICE = "Bid";
+    String JSON_PERCENT_CHANGE = "ChangeinPercent";
+    String JSON_CHANGE = "Change";
+
+    String JSON_DATE = "Date";
+    String JSON_CLOSE_BID = "Close";
+
     String[] QUOTE_COLUMNS = {
             QuoteDatabase.QUOTES + "." + QuoteColumns._ID,
             QuoteColumns.SYMBOL,

@@ -12,18 +12,29 @@ import com.sam_chordas.android.stockhawk.utils.IConstants;
  */
 public class SingleStockIntentService extends IntentService {
 
+    public SingleStockIntentService() {
+        super(SingleStockIntentService.class.getName());
+    }
+
     public SingleStockIntentService(String name) {
         super(name);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Bundle bundle = new Bundle();
-        bundle.putString(IConstants.PARAMS_EXTRA_SYMBOL, intent.getStringExtra(IConstants.PARAMS_EXTRA_SYMBOL));
-        bundle.putString(IConstants.PARAMS_EXTRA_END_DATE, intent.getStringExtra(IConstants.PARAMS_EXTRA_END_DATE));
-        bundle.putString(IConstants.PARAMS_EXTRA_START_DATE, intent.getStringExtra(IConstants.PARAMS_EXTRA_START_DATE));
 
-        SingleStockTaskService service = new SingleStockTaskService();
-        service.onRunTask(new TaskParams(IConstants.PARAMS_TAG, bundle));
+        Bundle args = new Bundle();
+
+        args.putString(IConstants.PARAMS_EXTRA_SYMBOL,
+                intent.getStringExtra(IConstants.PARAMS_EXTRA_SYMBOL));
+        args.putString(IConstants.PARAMS_EXTRA_START_DATE,
+                intent.getStringExtra(IConstants.PARAMS_EXTRA_START_DATE));
+        args.putString(IConstants.PARAMS_EXTRA_END_DATE,
+                intent.getStringExtra(IConstants.PARAMS_EXTRA_END_DATE));
+
+        // Initiates the task service
+        SingleStockTaskService taskService = new SingleStockTaskService();
+        taskService.onRunTask(new TaskParams(IConstants.PARAMS_TAG, args));
+
     }
 }

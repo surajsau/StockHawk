@@ -14,6 +14,7 @@ import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.Utils;
+import com.sam_chordas.android.stockhawk.utils.NetworkUtils;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -40,15 +41,6 @@ public class StockTaskService extends GcmTaskService {
 
     public StockTaskService(Context context) {
         mContext = context;
-    }
-
-    String fetchData(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return response.body().string();
     }
 
     @Override
@@ -115,7 +107,7 @@ public class StockTaskService extends GcmTaskService {
         if (urlStringBuilder != null) {
             urlString = urlStringBuilder.toString();
             try {
-                getResponse = fetchData(urlString);
+                getResponse = NetworkUtils.fetchData(client, urlString);
                 result = GcmNetworkManager.RESULT_SUCCESS;
                 try {
                     ContentValues contentValues = new ContentValues();

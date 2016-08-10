@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
+import com.sam_chordas.android.stockhawk.rest.QuoteDataPoint;
 import com.sam_chordas.android.stockhawk.utils.IConstants;
 import com.sam_chordas.android.stockhawk.utils.NetworkUtils;
 import com.squareup.okhttp.OkHttpClient;
@@ -58,8 +59,10 @@ public class SingleStockTaskService extends GcmTaskService {
             String response = NetworkUtils.fetchData(client, url);
             result = GcmNetworkManager.RESULT_SUCCESS;
 
+            ArrayList<QuoteDataPoint> points = NetworkUtils.dataToDataPoints(response);
+
             Intent historyIntent = new Intent(IConstants.INTENT_STOCK_HISTORY);
-            historyIntent.putParcelableArrayListExtra(IConstants.INTENT_EXTRA_STOCK_HISTORY, NetworkUtils.dataToDataPoints(response));
+            historyIntent.putParcelableArrayListExtra(IConstants.INTENT_EXTRA_STOCK_HISTORY, points);
             LocalBroadcastManager.getInstance(mContext).sendBroadcast(historyIntent);
 
         } catch (IOException e) {
