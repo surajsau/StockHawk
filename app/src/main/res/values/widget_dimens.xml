@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="collection_widget_margin">8dp</dimen>
+    <dimen name="row_margin">16dp</dimen>
+    <dimen name="row_text_right_margin">10dp</dimen>
+
+    <dimen name="quote_widget_default_height">180dp</dimen>
+    <dimen name="quote_widget_default_width">180dp</dimen>
+</resources>

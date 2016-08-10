@@ -35,6 +35,8 @@ import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
+import com.sam_chordas.android.stockhawk.utils.IConstants;
+import com.sam_chordas.android.stockhawk.utils.NetworkUtils;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -86,8 +88,23 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
-                        // do something on item click
+                        isConnected = NetworkUtils.isNetworkAvailable(mContext);
+
+                        if (isConnected) {
+
+                            mCursor.moveToPosition(position);
+
+                            String symbol = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+
+                            Intent intent = new Intent(MyStocksActivity.this, LineGraphActivity.class);
+                            intent.putExtra(IConstants.INTENT_EXTRA_STOCK_SYMBOL, symbol);
+                            startActivity(intent);
+
+                        } else {
+
+                            Toast.makeText(mContext, getString(R.string.details_network_toast), Toast.LENGTH_LONG).show();
+
+                        }
                     }
                 }));
         recyclerView.setAdapter(mCursorAdapter);

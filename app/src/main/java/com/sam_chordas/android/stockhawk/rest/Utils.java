@@ -6,8 +6,12 @@ import android.util.Log;
 
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.utils.IConstants;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,4 +104,27 @@ public class Utils {
         }
         return builder.build();
     }
+
+    public static String getStartDate() {
+        Date today = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date startDate = calendar.getTime();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(IConstants.DATE_FORMAT);
+        String startDateString = dateFormat.format(startDate);
+
+        return startDateString;
+    }
+
+    public static String getEndDate() {
+        Date today = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(IConstants.DATE_FORMAT);
+        String endDateString = dateFormat.format(today);
+
+        return endDateString;
+    }
+
 }
