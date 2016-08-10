@@ -20,6 +20,7 @@ public interface IConstants {
     String PARAMS_TAG = "param_tag";
 
     String INTENT_EXTRA_STOCK_SYMBOL = "stock_symbol";
+    String INTENT_STOCK_NOT_FOUND = "stock_not_found";
 
     String STATE_SYMBOL = "state_symbol";
     String STATE_DATES = "state_dates";
